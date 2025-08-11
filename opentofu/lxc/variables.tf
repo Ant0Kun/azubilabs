@@ -5,16 +5,16 @@ variable "lxcs" {
   }))
 
   default = {
-    lxc1 = { hostname = "web01", ip = "192.168.100.101" }
-    lxc2 = { hostname = "web02", ip = "192.168.100.102" }
-    lxc3 = { hostname = "web03", ip = "192.168.100.103" }
-    lxc4 = { hostname = "web04", ip = "192.168.100.104" }
-    lxc5 = { hostname = "web05", ip = "192.168.100.105" }
-    lxc6 = { hostname = "web06", ip = "192.168.100.106" }
-    lxc7 = { hostname = "web07", ip = "192.168.100.107" }
-    lxc8 = { hostname = "web08", ip = "192.168.100.108" }
-    lxc9 = { hostname = "web09", ip = "192.168.100.109" }
-    lxc10 = { hostname = "web10", ip = "192.168.100.110" }
+    lxc1 = { hostname = "vaultwarden", ip = "10.0.10.65" }
+    lxc2 = { hostname = "dns", ip = "10.0.10.93" }
+    lxc3 = { hostname = "dhcp", ip = "10.0.10.94" }
+    lxc4 = { hostname = "keycloak", ip = "10.0.10.66" }
+    lxc5 = { hostname = "phpipam", ip = "10.0.10.67" }
+    lxc6 = { hostname = "grafana", ip = "10.0.10.68" }
+    lxc7 = { hostname = "cloud", ip = "10.0.10.69" }
+    lxc8 = { hostname = "openbao", ip = "10.0.10.70" }
+    lxc9 = { hostname = "nginxproxymanager", ip = "10.0.10.71" }
+    lxc10 = { hostname = "gns3", ip = "10.0.10.72" }
   }
 }
 
