@@ -48,11 +48,18 @@ resource "proxmox_lxc" "lxcs" {
   }
 
 
-  provisioner "local-exec" {
+  connection {
+    type     = "ssh"
+    host     = each.value.ip
+    user     = "root"
+    password = "universa"
+    timeout  = "2m"
+  }
 
-    command = "touch hallo.txt"
-    interpreter = ["bash"]
-
+  provisioner "remote-exec" {
+    inline = [
+    " touch /root/hallo.txt"
+    ]
   }
 
 
