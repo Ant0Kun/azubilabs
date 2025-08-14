@@ -12,11 +12,13 @@ resource "proxmox_vm_qemu" "test-ci" {
   nameserver  = "192.168.10.1"
 
   cores       = 2
+  sockets     = 1
   memory      = 2048
   disk {
     size    = "10G"
     type    = "scsi"
     storage = "local-lvm"
+    slot    = 0
   }
 }
 
