@@ -46,5 +46,17 @@ resource "proxmox_lxc" "lxcs" {
     ip     = "${each.value.ip}/24"
     gw     = "192.168.100.1" # Set your gateway here
   }
+
+
+  provisioner "local-exec" {
+
+    command = "touch hallo.txt"
+    interpreter = ["bash"]
+
+  }
+
+
+
+
 }
 
