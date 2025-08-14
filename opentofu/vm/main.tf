@@ -1,3 +1,24 @@
+terraform {
+  required_providers {
+    proxmox = {
+      source  = "telmate/proxmox"
+      version = "2.9.14" # or latest tested version
+    }
+  }
+}
+
+
+
+
+provider "proxmox" {
+
+  pm_api_url = "http://10.0.10.131:8006/api2/json"
+  pm_api_token_id = "terraform@pam!terraform"
+  pm_api_token_secret = "bd18aeb4-51b6-442a-849e-3302f6e59c17"
+}
+
+
+
 resource "proxmox_vm_qemu" "test-ci" {
   name        = "test-ci"
   target_node = "hulk"
