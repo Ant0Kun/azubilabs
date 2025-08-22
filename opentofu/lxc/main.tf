@@ -13,8 +13,8 @@ terraform {
 provider "proxmox" {
 
   pm_api_url = "http://10.0.10.131:8006/api2/json"
-  pm_api_token_id = "terraform@pam!terraform"
-  pm_api_token_secret = "bd18aeb4-51b6-442a-849e-3302f6e59c17"
+  pm_api_token_id = "opentofu@pam!opentofu"
+  pm_api_token_secret = "be4f3ac7-2fbf-4c1b-b8e2-95d83c4fdb2b"
 }
 
 
@@ -23,7 +23,7 @@ resource "proxmox_lxc" "lxcs" {
 
   hostname     = each.value.hostname
   ostemplate   = "local:vztmpl/ubuntu-25.04-standard_25.04-1.1_amd64.tar.zst"
-  target_node  = "Hulk" # Your Proxmox node name
+  target_node  = "hulk" # Your Proxmox node name
   password     = "universa"
   cores        = 1
   memory       = 512
@@ -33,7 +33,7 @@ resource "proxmox_lxc" "lxcs" {
 
 
   rootfs {
-    storage = "Storage1_Hulk"
+    storage = "cephfs"
     size    = "4G"
   }
 #  ssh_public_keys = <<EOF
@@ -53,7 +53,7 @@ resource "proxmox_lxc" "lxcs" {
     host     = each.value.ip
     user     = "root"
     password = "universa"
-    timeout  = "2m"
+
   }
 
   provisioner "remote-exec" {
