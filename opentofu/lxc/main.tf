@@ -2,7 +2,7 @@ terraform {
   required_providers {
     proxmox = {
       source  = "telmate/proxmox"
-      version = "2.9.14" # or latest tested version
+      version = "3.0.2-rc03" # or latest tested version
     }
   }
 }
@@ -12,9 +12,11 @@ terraform {
 
 provider "proxmox" {
 
-  pm_api_url = "http://10.0.10.131:8006/api2/json"
-  pm_api_token_id = "opentofu@pve!opentofu"
-  pm_api_token_secret = "5b0ca6f1-932a-48cd-9c25-cb1590953b1a"
+  pm_api_url = "http://10.0.10.130:8006/api2/json"
+  pm_api_token_id = "tofu@pam!tofu"
+  pm_api_token_secret = "4b75bf0f-ccf7-48eb-879f-fad5790e017b"
+  pm_tls_insecure      = true
+  pm_minimum_permission_check = false
 }
 
 
