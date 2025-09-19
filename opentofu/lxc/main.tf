@@ -13,8 +13,8 @@ terraform {
 provider "proxmox" {
 
   pm_api_url = "http://10.0.10.130:8006/api2/json"
-  pm_api_token_id = "tofu@pam!tofu"
-  pm_api_token_secret = "4b75bf0f-ccf7-48eb-879f-fad5790e017b"
+  pm_api_token_id = "opentofu@pve!opentofu"
+  pm_api_token_secret = "fcfc76ac-5c7a-4133-b33f-04ae8d4a1bf1"
   pm_tls_insecure      = true
   pm_minimum_permission_check = false
 }
@@ -24,7 +24,7 @@ resource "proxmox_lxc" "lxcs" {
   for_each = var.lxcs
 
   hostname     = each.value.hostname
-  ostemplate   = "local:vztmpl/ubuntu-25.04-standard_25.04-1.1_amd64.tar.zst"
+  ostemplate   = "cephfs:vztmpl/ubuntu-25.04-standard_25.04-1.1_amd64.tar.zst"
   target_node  = "hulk" # Your Proxmox node name
   password     = "universa"
   cores        = 1
@@ -33,37 +33,29 @@ resource "proxmox_lxc" "lxcs" {
   unprivileged = true
   start        = true
 
+  tty          = 1
+  console      = true
 
   rootfs {
-    storage = "cephfs"
-    size    = "4G"
+    storage = "cephRBD"
+    size    = "8G"
   }
 #  ssh_public_keys = <<EOF
 #ssh-rsa AAAAB3...your-key
 #EOF
 
+  features {
+    nesting = true
+  }
+
+
   network {
     name   = "eth0"
-    bridge = "vmbr0"
-    ip     = "${each.value.ip}/24"
-    gw     = "192.168.100.1" # Set your gateway here
+    bridge = "vmbr0v500"
+    #ip     = "${each.value.ip}/27"
+    #gw     = "10.0.10.94" # Set your gateway here
+    ip = dhcp
   }
-
-
-  connection {
-    type     = "ssh"
-    host     = each.value.ip
-    user     = "root"
-    password = "universa"
-
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-    " touch /root/hallo.txt"
-    ]
-  }
-
 
 
 
