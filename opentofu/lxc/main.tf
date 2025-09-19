@@ -54,7 +54,7 @@ resource "proxmox_lxc" "lxcs" {
     bridge = "vmbr0v500"
     #ip     = "${each.value.ip}/27"
     #gw     = "10.0.10.94" # Set your gateway here
-    ip = dhcp
+    ip = "dhcp"
   }
 
 
