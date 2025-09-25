@@ -17,3 +17,17 @@ variable "lxcs" {
   }
 }
 
+variable "k3s" {
+  type = map(object({
+    hostname = string
+  
+  }))
+
+  default = {
+    k3s0 = { hostname = "k3s-control" }
+    k3s1 = { hostname = "k3s-worker01" }
+    k3s2 = { hostname = "k3s-worker02" }
+    k3s3 = { hostname = "k3s-worker03" }
+
+  }
+}

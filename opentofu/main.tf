@@ -61,3 +61,40 @@ resource "proxmox_lxc" "lxcs" {
 
 }
 
+
+resource "proxmox_vm_qemu" "k3s" {
+
+  for_each = var.k3s
+
+  name        = each.value.hostname
+  target_node = "ironman"
+  clone      = "ubuntu-cloudinit-template"
+  full_clone = true
+
+  agent   = 1
+  cores   = 4
+  sockets = 1
+  memory  = 8192
+
+
+  scsihw  = "virtio-scsi-pci"
+  
+  disk {
+    slot   = 0
+    size    = "20G"
+    type    = "scsi"
+    storage = "cephRBD"
+  }
+
+  network {
+    id     = "net0"
+    model  = "virtio"
+    bridge = "vmbr0v500"
+    
+  }
+
+  ciuser     = "ubuntu"
+  cipassword = "changeme"
+  ipconfig0  = "ip=dhcp"
+}
+
