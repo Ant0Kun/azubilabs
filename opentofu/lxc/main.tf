@@ -27,9 +27,9 @@ resource "proxmox_lxc" "lxcs" {
   ostemplate   = "cephfs:vztmpl/ubuntu-25.04-standard_25.04-1.1_amd64.tar.zst"
   target_node  = "hulk" # Your Proxmox node name
   password     = "universa"
-  cores        = 1
-  memory       = 512
-  swap         = 512
+  cores        = 2
+  memory       = 2048
+  swap         = 2048
   unprivileged = true
   start        = true
 
