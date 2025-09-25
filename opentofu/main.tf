@@ -71,30 +71,50 @@ resource "proxmox_vm_qemu" "k3s" {
   clone      = "ubuntu-cloudinit-template"
   full_clone = true
 
-  agent   = 1
-  cores   = 4
-  sockets = 1
+  cpu {
+    cores = 4
+    sockets = 1
+  }
+
   memory  = 8192
+  
+  scsihw = "virtio-scsi-pci"
+  
+  serial {
+    id   = 0
+    type = "socket"
+  }
 
-
-  scsihw  = "virtio-scsi-pci"
+  vga {
+    type = "std"
+  }
   
   disk {
-    slot   = 0
-    size    = "20G"
-    type    = "scsi"
+    slot   = "ide2"
+    type    = "cloudinit"
     storage = "cephRBD"
   }
 
+  boot     = "c"
+  bootdisk = "scsi0"
+  disk {
+
+    slot  = "scsi0"
+    size  = "32G"
+    type  = "disk"
+    storage = "cephRBD"
+  }  
+
   network {
-    id     = "net0"
+    id     = 0
     model  = "virtio"
     bridge = "vmbr0v500"
     
   }
 
-  ciuser     = "ubuntu"
-  cipassword = "changeme"
+  ciuser     = "azubi"
+  cipassword = "universa"
   ipconfig0  = "ip=dhcp"
+
 }
 
