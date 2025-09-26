@@ -67,7 +67,7 @@ resource "proxmox_vm_qemu" "k3s" {
   for_each = var.k3s
 
   name        = each.value.hostname
-  target_node = "ironman"
+  target_node = "hulk"
   clone      = "ubuntu-cloudinit-template"
   full_clone = true
 
@@ -114,7 +114,11 @@ resource "proxmox_vm_qemu" "k3s" {
 
   ciuser     = "azubi"
   cipassword = "universa"
-  ipconfig0  = "ip=dhcp"
+  ipconfig0  = "ip=${each.value.ip}/27,gw=10.0.10.94"
+ 
+  sshkeys = <<EOF
+  ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAZ2qCgz91Id1TZxhoDIrPWUFzdlZoMKVUS8MjxjhoHK anto@HP-uni
+  EOF
 
 }
 
