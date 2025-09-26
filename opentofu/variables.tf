@@ -20,14 +20,15 @@ variable "lxcs" {
 variable "k3s" {
   type = map(object({
     hostname = string
+    ip = string
   
   }))
 
   default = {
-    k3s0 = { hostname = "k3s-control" }
-    k3s1 = { hostname = "k3s-worker01" }
-    k3s2 = { hostname = "k3s-worker02" }
-    k3s3 = { hostname = "k3s-worker03" }
+    k3s0 = { hostname = "k3s-control", ip = "10.0.10.90" }
+    k3s1 = { hostname = "k3s-worker01", ip = "10.0.10.91" }
+    k3s2 = { hostname = "k3s-worker02", ip = "10.0.10.92" }
+    k3s3 = { hostname = "k3s-worker03", ip = "10.0.10.93" }
 
   }
 }
